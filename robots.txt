@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /payments/
+
+Sitemap: https://marhabatraders.com/sitemap.xml
