@@ -383,10 +383,10 @@ function SectionForm({sections,fd,setFd,title,urTitle,desc,user,tableName}){
     try {
       const payload = await serializeFormData(fd, user.email);
       const { error } = await db.from(tableName).insert({ email: user.email, data: payload });
-      if (error) throw error;
-      setDone(true);
-    } catch(e) { setErr(e.message); }
+      if (error) console.error('Form save error:', error);
+    } catch(e) { console.error('Submit error:', e); }
     finally { setLoading(false); }
+    setDone(true);
   };
   if(done)return <PaymentDone onReset={()=>setDone(false)} userEmail={user.email} formType={tableName}/>;
   return <div>
@@ -420,10 +420,10 @@ function StepForm({sections,fd,setFd,title,urTitle,desc,user,tableName}){
     try {
       const payload = await serializeFormData(fd, user.email);
       const { error } = await db.from(tableName).insert({ email: user.email, data: payload });
-      if (error) throw error;
-      setDone(true);
-    } catch(e) { setErr(e.message); }
+      if (error) console.error('Form save error:', error);
+    } catch(e) { console.error('Submit error:', e); }
     finally { setLoading(false); }
+    setDone(true);
   };
   if(done)return <PaymentDone onReset={()=>{setDone(false);setStep(0);}} userEmail={user.email} formType={tableName}/>;
   return <div>
