@@ -526,6 +526,77 @@ footer{background:var(--charcoal);color:rgba(249,250,251,.7);padding:48px 0 32px
 .cta-btn-startup:hover{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.6);transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.2)}
 .cta-btn-investor{background:linear-gradient(135deg,rgba(217,119,6,.85),rgba(180,83,9,.9));border:1.5px solid rgba(251,191,36,.4);color:#fff;letter-spacing:.3px;box-shadow:0 4px 20px rgba(180,83,9,.35);transition:all .3s cubic-bezier(.2,.8,.2,1)}
 .cta-btn-investor:hover{background:linear-gradient(135deg,#D97706,#B45309);transform:translateY(-2px);box-shadow:0 10px 32px rgba(180,83,9,.5)}
+
+/* ── MOBILE TESTIMONIAL CAROUSEL ─────────────────── */
+.testi-dots{display:none;justify-content:center;align-items:center;gap:8px;margin-top:20px;padding:0 24px 4px}
+.testi-dot{width:7px;height:7px;border-radius:50%;background:var(--border2);border:none;cursor:pointer;transition:all .35s cubic-bezier(.2,.8,.2,1);padding:0;flex-shrink:0}
+.testi-dot.on{width:22px;border-radius:4px;background:var(--blue)}
+.tfc-rmb{display:none}
+@media(max-width:680px){
+  #reviews .wrap{padding-left:0;padding-right:0;overflow:hidden}
+  #reviews .sec-head{padding:0 24px}
+  .testi-full-grid{
+    display:flex !important;
+    flex-direction:row;
+    overflow-x:scroll;
+    scroll-snap-type:x mandatory;
+    scroll-padding-left:20px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+    gap:14px;
+    padding:12px 20px 20px;
+    margin-top:16px;
+  }
+  .testi-full-grid::-webkit-scrollbar{display:none}
+  .tfc{
+    flex:0 0 calc(100vw - 56px) !important;
+    width:calc(100vw - 56px) !important;
+    scroll-snap-align:start;
+    margin-right:0;
+    transition-delay:0s !important;
+    opacity:.55 !important;
+    transform:scale(0.94) !important;
+    filter:none !important;
+    transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .4s cubic-bezier(.2,.8,.2,1),box-shadow .45s !important;
+    will-change:transform,opacity;
+  }
+  .tfc.tfc-active{
+    opacity:1 !important;
+    transform:scale(1) !important;
+    box-shadow:0 14px 44px rgba(0,0,0,.12),0 0 0 1.5px var(--blue-bd) !important;
+  }
+  .tfc-photo{height:185px !important}
+  .tfc-photo-name strong{font-size:16px}
+  .tfc-body{padding:14px 16px 12px;gap:9px}
+  .tfc-q{
+    display:-webkit-box !important;
+    -webkit-line-clamp:4;
+    -webkit-box-orient:vertical;
+    overflow:hidden !important;
+    font-size:14px !important;
+  }
+  .tfc-q.tfq-exp{display:block !important;overflow:visible !important;-webkit-line-clamp:unset}
+  .tfc-rmb{
+    display:inline-flex;
+    align-items:center;
+    gap:3px;
+    background:none;
+    border:none;
+    color:var(--blue);
+    font-size:11.5px;
+    font-weight:700;
+    cursor:pointer;
+    padding:3px 0;
+    font-family:inherit;
+    letter-spacing:.3px;
+    margin-top:2px;
+    align-self:flex-start;
+  }
+  .tfc-tag{font-size:9px;padding:3px 9px}
+  .tfc-stars{font-size:12px;letter-spacing:2px}
+  .testi-dots{display:flex}
+}
 </style>
 </head>
 <body>
@@ -733,6 +804,7 @@ footer{background:var(--charcoal);color:rgba(249,250,251,.7);padding:48px 0 32px
       <p style="font-size:15px;color:var(--muted);margin-top:10px">Real Pakistani founders. Real outcomes. Read what 18 funded startup leaders say about working with Marhaba Traders.</p>
     </div>
     <div class="testi-full-grid" id="testiFullGrid"></div>
+    <div id="testiDots" class="testi-dots" role="tablist" aria-label="Testimonial slides"></div>
   </div>
 </section>
 
@@ -1220,6 +1292,64 @@ document.addEventListener('keydown',e=>{
 /* ── INIT ─────────────────────────────────────────── */
 renderMarquee();renderSteps();renderSvcs();renderTesti();renderTestiGrid();renderTmGallery();renderInds();renderFAQ();
 setTimeout(observe,100);
+
+/* ── MOBILE TESTIMONIAL CAROUSEL ─────────────────── */
+(function(){
+  if(window.innerWidth>680)return;
+  const grid=document.getElementById('testiFullGrid');
+  const dotsEl=document.getElementById('testiDots');
+  if(!grid||!dotsEl)return;
+  const cards=Array.from(grid.querySelectorAll('.tfc'));
+  if(!cards.length)return;
+
+  // Bypass scroll-reveal — mark all visible immediately
+  cards.forEach(c=>c.classList.add('vis'));
+  cards[0].classList.add('tfc-active');
+
+  // Pagination dots
+  dotsEl.innerHTML=cards.map((_,i)=>
+    `<button class="testi-dot${i===0?' on':''}" aria-label="Slide ${i+1}"></button>`
+  ).join('');
+  const dotEls=Array.from(dotsEl.querySelectorAll('.testi-dot'));
+
+  const setActive=idx=>{
+    cards.forEach((c,i)=>c.classList.toggle('tfc-active',i===idx));
+    dotEls.forEach((d,i)=>d.classList.toggle('on',i===idx));
+  };
+
+  // Dot click → smooth scroll to card
+  dotEls.forEach((dot,i)=>dot.addEventListener('click',()=>{
+    grid.scrollTo({left:cards[i].offsetLeft-20,behavior:'smooth'});
+    setActive(i);
+  }));
+
+  // Read More toggles for long quotes
+  cards.forEach(card=>{
+    const q=card.querySelector('.tfc-q');
+    if(!q||q.textContent.trim().length<150)return;
+    const btn=document.createElement('button');
+    btn.className='tfc-rmb';
+    btn.textContent='Read more';
+    btn.addEventListener('click',function(e){
+      e.stopPropagation();
+      const exp=q.classList.toggle('tfq-exp');
+      this.textContent=exp?'Read less':'Read more';
+    });
+    q.insertAdjacentElement('afterend',btn);
+  });
+
+  // IntersectionObserver → update active card + dots on swipe
+  let curIdx=0;
+  const carouselIO=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting&&entry.intersectionRatio>=0.5){
+        const idx=cards.indexOf(entry.target);
+        if(idx>=0&&idx!==curIdx){curIdx=idx;setActive(idx);}
+      }
+    });
+  },{root:grid,threshold:0.5});
+  cards.forEach(c=>carouselIO.observe(c));
+})();
 
 /* ── VIP TESTI LIGHTBOX JS ─────────────────────── */
 let tlIdx=0;
