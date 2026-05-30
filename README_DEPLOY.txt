@@ -78,5 +78,5 @@ If you have these image folders somewhere on your computer,
 copy them into this deploy/ folder before uploading.
 
 ================================================================
-  Support: hello@marhabatraders.com | WhatsApp: 03719222195
+  Support: hello@marhabatraders.online | WhatsApp: 03719222195
 ================================================================
