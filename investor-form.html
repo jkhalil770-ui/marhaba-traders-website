@@ -347,11 +347,23 @@ function SectionForm({sections,fd,setFd,title,desc,user,tableName}){
     setLoading(true); setErr(null);
     try {
       const payload = await serializeFormData(fd, user.email);
-      const { error } = await db.from(tableName).insert({ email: user.email, data: payload });
-      if (error) console.error('Form save error:', error);
-    } catch(e) { console.error('Submit error:', e); }
-    finally { setLoading(false); }
-    setDone(true);
+      const insertData = { email: user.email, data: payload };
+      if (user.supabase_uid) {
+        insertData.auth_user_id = user.supabase_uid;
+      }
+      const { error } = await db.from(tableName).insert(insertData);
+      if (error) {
+        console.error('Form save error:', error);
+        setErr(error.message || 'Failed to save form data. Please try again.');
+      } else {
+        setDone(true);
+      }
+    } catch(e) {
+      console.error('Submit error:', e);
+      setErr(e.message || 'An unexpected error occurred. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
   if(done)return <PaymentDone onReset={()=>setDone(false)} userEmail={user.email} formType={tableName}/>;
   return <div>
@@ -380,11 +392,23 @@ function StepForm({sections,fd,setFd,title,desc,user,tableName}){
     setLoading(true); setErr(null);
     try {
       const payload = await serializeFormData(fd, user.email);
-      const { error } = await db.from(tableName).insert({ email: user.email, data: payload });
-      if (error) console.error('Form save error:', error);
-    } catch(e) { console.error('Submit error:', e); }
-    finally { setLoading(false); }
-    setDone(true);
+      const insertData = { email: user.email, data: payload };
+      if (user.supabase_uid) {
+        insertData.auth_user_id = user.supabase_uid;
+      }
+      const { error } = await db.from(tableName).insert(insertData);
+      if (error) {
+        console.error('Form save error:', error);
+        setErr(error.message || 'Failed to save form data. Please try again.');
+      } else {
+        setDone(true);
+      }
+    } catch(e) {
+      console.error('Submit error:', e);
+      setErr(e.message || 'An unexpected error occurred. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
   if(done)return <PaymentDone onReset={()=>{setDone(false);setStep(0);}} userEmail={user.email} formType={tableName}/>;
   return <div>
