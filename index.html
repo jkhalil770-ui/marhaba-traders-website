@@ -1200,7 +1200,7 @@ function renderTesti(){
   const dots=document.getElementById('testiDots');
   track.innerHTML=CS_IMGS.map((src,i)=>`
     <div class="cs-slide">
-      <img src="${src}" alt="Case Study ${i+1}" loading="lazy" onerror="this.style.background='var(--light)'">
+      <img src="${src}" alt="Case Study ${i+1}" ${i < 3 ? 'loading="eager"' : 'loading="lazy"'} onerror="this.style.background='var(--light)'">
       <div class="cs-slide-foot">
         <span class="cs-slide-num">CASE STUDY · ${String(i+1).padStart(2,'0')}</span>
         <span class="cs-slide-label">Marhaba Traders</span>
@@ -1214,6 +1214,25 @@ function goT(i){
   const mx=Math.max(0,CS_IMGS.length-vc);
   ti=((i%CS_IMGS.length)+CS_IMGS.length)%CS_IMGS.length;
   if(ti>mx)ti=0;
+
+  // Eagerly promote visible and next adjacent slides in DOM to bypass horizontal translation lazy-loading bugs
+  const slides = document.querySelectorAll('.cs-slide img');
+  for (let j = 0; j < vc + 2; j++) {
+    const idx = (ti + j) % CS_IMGS.length;
+    const img = slides[idx];
+    if (img) {
+      img.loading = 'eager';
+      img.removeAttribute('loading');
+    }
+  }
+
+  // Preload next 3 slides proactively in background thread
+  for (let j = 1; j <= 3; j++) {
+    const nextIdx = (ti + vc + j) % CS_IMGS.length;
+    const preloadImg = new Image();
+    preloadImg.src = CS_IMGS[nextIdx];
+  }
+
   const outer=document.querySelector('.testi-outer');
   const gap=20;
   const cardW=(outer.offsetWidth-(gap*(vc-1)))/vc;
@@ -1434,7 +1453,17 @@ setTimeout(observe,100);
 
     // active class on all children (includes clones at 0 and N+1)
     Array.from(grid.children).forEach(function(c, i) {
-      c.classList.toggle('tfc-active', i === currentIdx);
+      var isActive = i === currentIdx;
+      c.classList.toggle('tfc-active', isActive);
+
+      // Eagerly promote visible and next adjacent card images in DOM to bypass lazy loading during CSS translation
+      if (Math.abs(i - currentIdx) <= 2) {
+        var img = c.querySelector('img');
+        if (img) {
+          img.loading = 'eager';
+          img.removeAttribute('loading');
+        }
+      }
     });
 
     preloadAdjacent();
@@ -1534,7 +1563,10 @@ setTimeout(observe,100);
     // Mark first 3 real cards as eager (prevent lazy-load delay for visible ones)
     originalCards.slice(0, 3).forEach(function(c) {
       var img = c.querySelector('img');
-      if (img) img.loading = 'eager';
+      if (img) {
+        img.loading = 'eager';
+        img.removeAttribute('loading');
+      }
     });
 
     // Measure slot width from the wrap container
