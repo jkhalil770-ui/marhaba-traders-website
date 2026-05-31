@@ -535,58 +535,60 @@ footer{background:var(--charcoal);color:rgba(249,250,251,.7);padding:48px 0 32px
 .cta-btn-investor:hover{background:linear-gradient(135deg,#D97706,#B45309);transform:translateY(-2px);box-shadow:0 10px 32px rgba(180,83,9,.5)}
 
 /* ── MOBILE TESTIMONIAL CAROUSEL ─────────────────── */
-.testi-carousel-controls-mob {display:none}
+.testi-carousel-controls-mob{display:none}
 .tfc-rmb{display:none}
 @media(max-width:680px){
-  #reviews .wrap{padding-left:0;padding-right:0;overflow:hidden;position:relative;width:100%}
+  /* Wrapper clips the track overflow */
+  #reviews .wrap{padding-left:0!important;padding-right:0!important;overflow:hidden;position:relative;width:100%}
   #reviews .sec-head{padding:0 24px}
+  /* Track: flex row, auto width (grows to fit all cards), JS sets transform */
   .testi-full-grid{
-    display:flex !important;
-    flex-direction:row !important;
-    flex-wrap:nowrap !important;
-    gap:0 !important;
-    width:100% !important;
-    margin-top:20px !important;
-    padding:0 !important;
-    grid-template-columns:none !important;
+    display:flex!important;
+    flex-direction:row!important;
+    flex-wrap:nowrap!important;
+    gap:0!important;
+    width:auto!important;
+    margin:16px 0 0 0!important;
+    padding:0!important;
+    grid-template-columns:none!important;
+    transition:transform 0.75s cubic-bezier(0.22,1,0.36,1);
+    will-change:transform;
   }
+  /* Cards: JS sets exact px width; CSS handles visual states */
   .tfc{
-    flex:0 0 calc(100% - 40px) !important;
-    width:calc(100% - 40px) !important;
-    margin:0 20px !important;
+    flex-shrink:0!important;
     box-sizing:border-box;
-    transition-delay:0s !important;
-    opacity:.55 !important;
-    transform:scale(0.94) !important;
-    filter:none !important;
-    transition:transform 0.75s cubic-bezier(0.22,1,0.36,1),opacity 0.75s cubic-bezier(0.22,1,0.36,1),box-shadow 0.75s !important;
+    transition-delay:0s!important;
+    opacity:0.5!important;
+    transform:scale(0.93)!important;
+    filter:none!important;
+    transition:opacity 0.65s cubic-bezier(0.22,1,0.36,1),transform 0.65s cubic-bezier(0.22,1,0.36,1),box-shadow 0.65s!important;
   }
   .tfc.tfc-active{
-    opacity:1 !important;
-    transform:scale(1) !important;
-    box-shadow:0 14px 44px rgba(0,0,0,.12),0 0 0 1.5px var(--blue-bd) !important;
+    opacity:1!important;
+    transform:scale(1)!important;
+    box-shadow:0 12px 40px rgba(0,0,0,.13),0 0 0 1.5px var(--blue-bd)!important;
   }
-  .tfc-photo{height:140px !important}
-  .tfc-photo-overlay{background:linear-gradient(to bottom,transparent 25%,rgba(10,15,40,.78)) !important}
-  .tfc-photo-name{bottom:10px !important;left:14px !important;right:14px !important}
-  .tfc-photo-name strong{font-size:15px !important}
-  .tfc-photo-name span{font-size:10.5px !important}
-  .tfc-body{padding:12px 14px 10px !important;gap:8px !important}
-  .tfc-body::before{font-size:60px !important;top:-12px !important;right:12px !important}
-  .tfc-stars{font-size:12px !important;letter-spacing:2px !important}
+  .tfc-photo{height:140px!important}
+  .tfc-photo-overlay{background:linear-gradient(to bottom,transparent 25%,rgba(10,15,40,.78))!important}
+  .tfc-photo-name{bottom:10px!important;left:14px!important;right:14px!important}
+  .tfc-photo-name strong{font-size:15px!important}
+  .tfc-photo-name span{font-size:10.5px!important}
+  .tfc-body{padding:12px 14px 10px!important;gap:8px!important}
+  .tfc-body::before{font-size:60px!important;top:-12px!important;right:12px!important}
+  .tfc-stars{font-size:12px!important;letter-spacing:2px!important}
   .tfc-q{
-    display:-webkit-box !important;
+    display:-webkit-box!important;
     -webkit-line-clamp:4;
     -webkit-box-orient:vertical;
-    overflow:hidden !important;
-    font-size:13.5px !important;
-    line-height:1.6 !important;
+    overflow:hidden!important;
+    font-size:13.5px!important;
+    line-height:1.6!important;
   }
-  .tfc-q.tfq-exp{display:block !important;overflow:visible !important;-webkit-line-clamp:unset}
+  .tfc-q.tfq-exp{display:block!important;overflow:visible!important;-webkit-line-clamp:unset}
   .tfc-rmb{
     display:inline-flex;
     align-items:center;
-    gap:3px;
     background:none;
     border:none;
     color:var(--blue);
@@ -599,23 +601,22 @@ footer{background:var(--charcoal);color:rgba(249,250,251,.7);padding:48px 0 32px
     margin-top:2px;
     align-self:flex-start;
   }
-  .tfc-meta{padding-top:8px !important;gap:6px !important}
-  .tfc-co{font-size:11px !important}
-  .tfc-tags{gap:4px !important}
-  .tfc-tag{font-size:8.5px !important;padding:2px 8px !important}
-  .tfc-view{font-size:10.5px !important;padding:5px 11px !important;margin-top:2px !important}
-  
+  .tfc-meta{padding-top:8px!important;gap:6px!important}
+  .tfc-co{font-size:11px!important}
+  .tfc-tags{gap:4px!important}
+  .tfc-tag{font-size:8.5px!important;padding:2px 8px!important}
+  .tfc-view{font-size:10.5px!important;padding:5px 11px!important;margin-top:2px!important}
   .testi-carousel-controls-mob{
-    display:flex !important;
+    display:flex!important;
     align-items:center;
     justify-content:center;
-    gap:16px;
-    margin-top:24px;
+    gap:12px;
+    margin-top:20px;
     position:relative;
     padding:0 24px;
   }
   .testi-mob-arrow{
-    background:rgba(255,255,255,0.9);
+    background:rgba(255,255,255,0.92);
     border:1px solid var(--border);
     color:var(--blue);
     width:36px;
@@ -625,22 +626,22 @@ footer{background:var(--charcoal);color:rgba(249,250,251,.7);padding:48px 0 32px
     align-items:center;
     justify-content:center;
     cursor:pointer;
-    box-shadow:0 4px 12px rgba(0,0,0,0.05);
-    transition:all 0.25s ease;
-    padding:0;
     flex-shrink:0;
+    padding:0;
+    box-shadow:0 2px 8px rgba(0,0,0,.07);
+    transition:background 0.2s,transform 0.15s;
   }
-  .testi-mob-arrow:active{
-    transform:scale(0.9);
-    background:var(--blue-bg);
-  }
+  .testi-mob-arrow:active{transform:scale(0.88);background:var(--blue-bg)}
   .testi-dots{
-    display:flex !important;
+    display:flex!important;
     justify-content:center;
     align-items:center;
-    gap:6px;
-    margin-top:0 !important;
-    padding:0 !important;
+    gap:5px;
+    flex:1;
+    margin-top:0!important;
+    padding:0!important;
+    flex-wrap:wrap;
+    max-width:200px;
   }
   .testi-dot{
     width:6px;
@@ -653,18 +654,13 @@ footer{background:var(--charcoal);color:rgba(249,250,251,.7);padding:48px 0 32px
     padding:0;
     flex-shrink:0;
   }
-  .testi-dot.on{
-    width:18px;
-    border-radius:3px;
-    background:var(--blue);
-  }
+  .testi-dot.on{width:18px;border-radius:3px;background:var(--blue)}
   .testi-mob-counter{
-    position:absolute;
-    right:24px;
-    font-size:11.5px;
+    font-size:11px;
     font-weight:700;
     color:var(--muted);
-    letter-spacing:0.5px;
+    letter-spacing:0.4px;
+    white-space:nowrap;
   }
 }
 </style>
@@ -1374,352 +1370,279 @@ setTimeout(observe,100);
 
 /* ── MOBILE TESTIMONIAL CAROUSEL ─────────────────── */
 (function() {
-  let originalHtml = "";
-  let isMobileActive = false;
-  let grid = null;
-  let controlsMob = null;
-  let dotsContainer = null;
-  let counterEl = null;
-  let prevBtn = null;
-  let nextBtn = null;
+  /* ---- Constants ---- */
+  var MARGIN = 16;      // px on each side of each card
+  var DURATION = 750;   // transition ms
+  var AUTOPLAY_MS = 5500;
+  var RESUME_MS = 8000;
 
-  let cards = [];
-  let currentIndex = 1;
-  let isTransitioning = false;
-  let autoplayInterval = null;
-  let resumeTimeout = null;
+  /* ---- State ---- */
+  var grid, controlsMob, dotsContainer, counterEl, prevBtn, nextBtn;
+  var originalCards = [];
+  var currentIdx = 1;  // 1-based: 0 = clone-of-last, 1..N = real cards, N+1 = clone-of-first
+  var slotW = 0;       // pixel width of one card slot (= viewport width used for translation)
+  var cardW = 0;       // pixel width of card (= slotW - 2*MARGIN)
+  var isAnim = false;
+  var autoplayTimer = null;
+  var resumeTimer = null;
+  var touchX0 = 0, touchY0 = 0, touchDX = 0;
+  var isTouching = false;
+  var initialized = false;
 
-  let startX = 0;
-  let startY = 0;
-  let dragDistance = 0;
-  let isDragging = false;
-  let startTime = 0;
-  let gridWidth = 0;
+  function isMobile() { return window.innerWidth <= 680; }
 
-  let touchStartHandler = null;
-  let touchMoveHandler = null;
-  let touchEndHandler = null;
-
-  function prefetchImage(src) {
-    if (!src) return;
-    const img = new Image();
-    img.src = src;
+  /* ---- Image preloading ---- */
+  function preload(src) { if (src) { var i = new Image(); i.src = src; } }
+  function preloadAdjacent() {
+    var N = originalCards.length;
+    if (!N) return;
+    // next real card
+    var ni = currentIdx >= N ? 0 : currentIdx; // 0-based index in originalCards
+    var pi = currentIdx <= 1 ? N - 1 : currentIdx - 2;
+    var nImg = originalCards[ni] && originalCards[ni].querySelector('img');
+    var pImg = originalCards[pi] && originalCards[pi].querySelector('img');
+    if (nImg) preload(nImg.src);
+    if (pImg) preload(pImg.src);
   }
 
-  function preloadAdjacentImages() {
-    const totalCards = cards.length;
-    if (totalCards <= 1) return;
-
-    const nextIdx = (currentIndex % totalCards);
-    const prevIdx = (currentIndex - 2 + totalCards) % totalCards;
-
-    if (cards[nextIdx]) {
-      const img = cards[nextIdx].querySelector('img');
-      if (img && img.src) prefetchImage(img.src);
-    }
-    if (cards[prevIdx]) {
-      const img = cards[prevIdx].querySelector('img');
-      if (img && img.src) prefetchImage(img.src);
-    }
+  /* ---- Track positioning ---- */
+  function setPos(px, animate) {
+    grid.style.transition = animate
+      ? 'transform ' + DURATION + 'ms cubic-bezier(0.22, 1, 0.36, 1)'
+      : 'none';
+    grid.style.transform = 'translate3d(' + (-px) + 'px, 0, 0)';
   }
 
-  function updateSlideState() {
-    const total = cards.length;
-    if (total === 0) return;
+  /* ---- Active card & UI state ---- */
+  function updateUI() {
+    var N = originalCards.length;
+    if (!N) return;
+    // resolve display index (0-based for originalCards)
+    var di;
+    if (currentIdx === 0) di = N - 1;
+    else if (currentIdx === N + 1) di = 0;
+    else di = currentIdx - 1;
 
-    let slideIdx = 0;
-    if (currentIndex === 0) {
-      slideIdx = total - 1;
-    } else if (currentIndex === total + 1) {
-      slideIdx = 0;
-    } else {
-      slideIdx = currentIndex - 1;
-    }
-
+    // dots
     if (dotsContainer) {
-      const dots = dotsContainer.querySelectorAll('.testi-dot');
-      dots.forEach((dot, idx) => {
-        dot.classList.toggle('on', idx === slideIdx);
+      Array.from(dotsContainer.querySelectorAll('.testi-dot')).forEach(function(d, i) {
+        d.classList.toggle('on', i === di);
       });
     }
+    // counter
+    if (counterEl) counterEl.textContent = (di + 1) + ' / ' + N;
 
-    if (counterEl) {
-      counterEl.textContent = `${slideIdx + 1} / ${total}`;
-    }
+    // active class on all children (includes clones at 0 and N+1)
+    Array.from(grid.children).forEach(function(c, i) {
+      c.classList.toggle('tfc-active', i === currentIdx);
+    });
 
-    const allItems = grid.children;
-    for (let idx = 0; idx < allItems.length; idx++) {
-      allItems[idx].classList.toggle('tfc-active', idx === currentIndex);
-    }
-
-    preloadAdjacentImages();
+    preloadAdjacent();
   }
 
-  function goToSlide(targetIdx) {
-    if (isTransitioning || !grid) return;
-    isTransitioning = true;
-    currentIndex = targetIdx;
+  /* ---- Go to slide ---- */
+  function goTo(idx) {
+    if (isAnim) return;
+    isAnim = true;
+    currentIdx = idx;
+    setPos(currentIdx * slotW, true);
+    updateUI();
 
-    grid.style.transition = 'transform 0.75s cubic-bezier(0.22, 1, 0.36, 1)';
-    grid.style.transform = `translate3d(${-currentIndex * 100}%, 0, 0)`;
-
-    updateSlideState();
-
-    setTimeout(() => {
-      const total = cards.length;
-      if (currentIndex === 0) {
-        currentIndex = total;
-        grid.style.transition = 'none';
-        grid.style.transform = `translate3d(${-currentIndex * 100}%, 0, 0)`;
-      } else if (currentIndex === total + 1) {
-        currentIndex = 1;
-        grid.style.transition = 'none';
-        grid.style.transform = `translate3d(${-currentIndex * 100}%, 0, 0)`;
+    setTimeout(function() {
+      var N = originalCards.length;
+      if (currentIdx === 0) {
+        // jumped to clone-of-last → silently jump to real last
+        currentIdx = N;
+        setPos(currentIdx * slotW, false);
+      } else if (currentIdx === N + 1) {
+        // jumped to clone-of-first → silently jump to real first
+        currentIdx = 1;
+        setPos(currentIdx * slotW, false);
       }
-      isTransitioning = false;
-    }, 750);
+      isAnim = false;
+    }, DURATION + 20);
   }
 
-  function startAutoplay() {
-    stopAutoplay();
-    autoplayInterval = setInterval(() => {
-      if (!isDragging && !isTransitioning) {
-        goToSlide(currentIndex + 1);
-      }
-    }, 5500);
+  /* ---- Autoplay ---- */
+  function startPlay() {
+    stopPlay();
+    autoplayTimer = setInterval(function() {
+      if (!isTouching && !isAnim) goTo(currentIdx + 1);
+    }, AUTOPLAY_MS);
+  }
+  function stopPlay() {
+    if (autoplayTimer) { clearInterval(autoplayTimer); autoplayTimer = null; }
+  }
+  function pausePlay() {
+    stopPlay();
+    if (resumeTimer) clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(startPlay, RESUME_MS);
   }
 
-  function stopAutoplay() {
-    if (autoplayInterval) {
-      clearInterval(autoplayInterval);
-      autoplayInterval = null;
-    }
-  }
-
-  function resetAutoplayTimer() {
-    stopAutoplay();
-    if (resumeTimeout) clearTimeout(resumeTimeout);
-    resumeTimeout = setTimeout(() => {
-      startAutoplay();
-    }, 8000);
-  }
-
-  function handleTouchStart(e) {
-    if (isTransitioning) return;
-    stopAutoplay();
-    if (resumeTimeout) clearTimeout(resumeTimeout);
-
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
-    isDragging = true;
-    dragDistance = 0;
-    startTime = performance.now();
-
-    gridWidth = grid.offsetWidth || window.innerWidth;
-
+  /* ---- Touch handlers ---- */
+  function onTouchStart(e) {
+    if (isAnim) return;
+    isTouching = true;
+    touchX0 = e.touches[0].clientX;
+    touchY0 = e.touches[0].clientY;
+    touchDX = 0;
+    stopPlay();
+    if (resumeTimer) clearTimeout(resumeTimer);
     grid.style.transition = 'none';
     grid.style.willChange = 'transform';
   }
-
-  function handleTouchMove(e) {
-    if (!isDragging) return;
-    const currentX = e.touches[0].clientX;
-    const currentY = e.touches[0].clientY;
-    const diffX = currentX - startX;
-    const diffY = currentY - startY;
-
-    if (Math.abs(diffY) > Math.abs(diffX)) {
-      isDragging = false;
+  function onTouchMove(e) {
+    if (!isTouching) return;
+    var dx = e.touches[0].clientX - touchX0;
+    var dy = e.touches[0].clientY - touchY0;
+    // if mostly vertical, release and let page scroll
+    if (Math.abs(dy) > Math.abs(dx) && Math.abs(touchDX) < 5) {
+      isTouching = false;
       grid.style.willChange = '';
       return;
     }
-
-    dragDistance = diffX;
-    const percentMove = (diffX / gridWidth) * 100;
-    const newTranslatePercent = -currentIndex * 100 + percentMove;
-
     if (e.cancelable) e.preventDefault();
-
-    grid.style.transform = `translate3d(${newTranslatePercent}%, 0, 0)`;
+    touchDX = dx;
+    grid.style.transform = 'translate3d(' + (-(currentIdx * slotW) + dx) + 'px, 0, 0)';
   }
-
-  function handleTouchEnd(e) {
-    if (!isDragging) return;
-    isDragging = false;
+  function onTouchEnd() {
+    if (!isTouching) return;
+    isTouching = false;
     grid.style.willChange = '';
-
-    const duration = performance.now() - startTime;
-    const isFastSwipe = Math.abs(dragDistance) > 25 && duration < 250;
-
-    if (dragDistance > 50 || (dragDistance > 25 && isFastSwipe)) {
-      goToSlide(currentIndex - 1);
-    } else if (dragDistance < -50 || (dragDistance < -25 && isFastSwipe)) {
-      goToSlide(currentIndex + 1);
-    } else {
-      goToSlide(currentIndex);
-    }
-
-    resetAutoplayTimer();
+    var threshold = slotW * 0.25;
+    if (touchDX < -threshold) goTo(currentIdx + 1);
+    else if (touchDX > threshold) goTo(currentIdx - 1);
+    else goTo(currentIdx);
+    pausePlay();
   }
 
-  function setupCarousel() {
+  /* ---- Build carousel ---- */
+  function setup() {
     grid = document.getElementById('testiFullGrid');
     controlsMob = document.getElementById('testiCarouselControlsMob');
     dotsContainer = document.getElementById('testiDots');
     counterEl = document.getElementById('testiCounterMob');
     prevBtn = document.getElementById('testiPrevMob');
     nextBtn = document.getElementById('testiNextMob');
-
     if (!grid) return;
 
-    originalHtml = grid.innerHTML;
+    // Snapshot original cards
+    originalCards = Array.from(grid.querySelectorAll('.tfc'));
+    var N = originalCards.length;
+    if (!N) return;
 
-    cards = Array.from(grid.querySelectorAll('.tfc'));
-    const total = cards.length;
-    if (total === 0) return;
+    // Mark first 3 real cards as eager (prevent lazy-load delay for visible ones)
+    originalCards.slice(0, 3).forEach(function(c) {
+      var img = c.querySelector('img');
+      if (img) img.loading = 'eager';
+    });
 
-    cards.forEach(c => {
+    // Measure slot width from the wrap container
+    var wrap = grid.closest('.wrap') || grid.parentElement;
+    slotW = wrap ? wrap.offsetWidth : window.innerWidth;
+    cardW = slotW - MARGIN * 2;
+
+    // Set card dimensions in JS (not CSS calc)
+    originalCards.forEach(function(c) {
+      c.style.width = cardW + 'px';
+      c.style.marginLeft = MARGIN + 'px';
+      c.style.marginRight = MARGIN + 'px';
       c.classList.add('vis');
     });
 
-    const firstClone = cards[0].cloneNode(true);
-    const lastClone = cards[total - 1].cloneNode(true);
-
+    // Build clones for infinite loop
+    var firstClone = originalCards[0].cloneNode(true);
+    var lastClone  = originalCards[N - 1].cloneNode(true);
     firstClone.classList.add('tfc-clone');
     lastClone.classList.add('tfc-clone');
 
+    // Rebuild track: [lastClone, ...realCards, firstClone]
     grid.innerHTML = '';
     grid.appendChild(lastClone);
-    cards.forEach(c => grid.appendChild(c));
+    originalCards.forEach(function(c) { grid.appendChild(c); });
     grid.appendChild(firstClone);
 
-    currentIndex = 1;
-    grid.style.transition = 'none';
-    grid.style.transform = `translate3d(${-currentIndex * 100}%, 0, 0)`;
+    // Set track total width
+    var totalItems = N + 2; // real + 2 clones
+    grid.style.width = (totalItems * slotW) + 'px';
 
+    // Set clone dimensions too
+    [firstClone, lastClone].forEach(function(c) {
+      c.style.width = cardW + 'px';
+      c.style.marginLeft = MARGIN + 'px';
+      c.style.marginRight = MARGIN + 'px';
+    });
+
+    // Start at index 1 (first real card) instantly
+    currentIdx = 1;
+    setPos(currentIdx * slotW, false);
+    updateUI();
+
+    // Build dots
     if (dotsContainer) {
-      dotsContainer.innerHTML = cards.map((_, i) =>
-        `<button class="testi-dot${i === 0 ? ' on' : ''}" aria-label="Slide ${i+1}"></button>`
-      ).join('');
-
-      const dotBtns = dotsContainer.querySelectorAll('.testi-dot');
-      dotBtns.forEach((dot, idx) => {
-        dot.addEventListener('click', () => {
-          goToSlide(idx + 1);
-          resetAutoplayTimer();
-        });
+      dotsContainer.innerHTML = originalCards.map(function(_, i) {
+        return '<button class="testi-dot' + (i === 0 ? ' on' : '') + '" aria-label="Slide ' + (i + 1) + '"></button>';
+      }).join('');
+      Array.from(dotsContainer.querySelectorAll('.testi-dot')).forEach(function(dot, i) {
+        dot.addEventListener('click', function() { goTo(i + 1); pausePlay(); });
       });
     }
 
-    if (prevBtn) {
-      prevBtn.addEventListener('click', () => {
-        goToSlide(currentIndex - 1);
-        resetAutoplayTimer();
-      });
-    }
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => {
-        goToSlide(currentIndex + 1);
-        resetAutoplayTimer();
-      });
-    }
+    // Arrow buttons
+    if (prevBtn) prevBtn.addEventListener('click', function() { goTo(currentIdx - 1); pausePlay(); });
+    if (nextBtn) nextBtn.addEventListener('click', function() { goTo(currentIdx + 1); pausePlay(); });
 
-    cards.forEach(card => {
-      const q = card.querySelector('.tfc-q');
+    // Read More buttons (delegated)
+    originalCards.forEach(function(card) {
+      var q = card.querySelector('.tfc-q');
       if (!q || q.textContent.trim().length < 150) return;
-      const btn = document.createElement('button');
+      var btn = document.createElement('button');
       btn.className = 'tfc-rmb';
       btn.textContent = 'Read more';
       q.insertAdjacentElement('afterend', btn);
     });
-
-    grid.addEventListener('click', (e) => {
-      const rmb = e.target.closest('.tfc-rmb');
-      if (rmb) {
-        e.stopPropagation();
-        const card = rmb.closest('.tfc');
-        const q = card.querySelector('.tfc-q');
-        if (q) {
-          const exp = q.classList.toggle('tfq-exp');
-          rmb.textContent = exp ? 'Read less' : 'Read more';
-        }
-      }
+    grid.addEventListener('click', function(e) {
+      var rmb = e.target.closest('.tfc-rmb');
+      if (!rmb) return;
+      e.stopPropagation();
+      var q = rmb.closest('.tfc').querySelector('.tfc-q');
+      if (q) { var exp = q.classList.toggle('tfq-exp'); rmb.textContent = exp ? 'Read less' : 'Read more'; }
     });
 
-    touchStartHandler = handleTouchStart;
-    touchMoveHandler = handleTouchMove;
-    touchEndHandler = handleTouchEnd;
+    // Touch
+    grid.addEventListener('touchstart', onTouchStart, { passive: true });
+    grid.addEventListener('touchmove', onTouchMove, { passive: false });
+    grid.addEventListener('touchend', onTouchEnd, { passive: true });
 
-    grid.addEventListener('touchstart', touchStartHandler, { passive: true });
-    grid.addEventListener('touchmove', touchMoveHandler, { passive: false });
-    grid.addEventListener('touchend', touchEndHandler, { passive: true });
+    // Show controls
+    if (controlsMob) controlsMob.style.display = 'flex';
 
-    if (controlsMob) {
-      controlsMob.style.display = 'flex';
-    }
-
-    updateSlideState();
-    startAutoplay();
+    startPlay();
+    initialized = true;
   }
 
-  function destroyCarousel() {
-    stopAutoplay();
-    if (resumeTimeout) clearTimeout(resumeTimeout);
-
-    if (grid) {
-      if (touchStartHandler) grid.removeEventListener('touchstart', touchStartHandler);
-      if (touchMoveHandler) grid.removeEventListener('touchmove', touchMoveHandler);
-      if (touchEndHandler) grid.removeEventListener('touchend', touchEndHandler);
-
-      if (originalHtml) {
-        grid.innerHTML = originalHtml;
-      }
-      grid.style.transform = '';
-      grid.style.transition = '';
-      grid.style.willChange = '';
-    }
-
-    if (controlsMob) {
-      controlsMob.style.display = 'none';
-    }
-
-    grid = null;
-    controlsMob = null;
-    dotsContainer = null;
-    counterEl = null;
-    prevBtn = null;
-    nextBtn = null;
-    cards = [];
-    isTransitioning = false;
+  /* ---- Resize: recalculate pixel widths ---- */
+  function onResize() {
+    if (!initialized || !isMobile() || !grid) return;
+    var wrap = grid.closest('.wrap') || grid.parentElement;
+    slotW = wrap ? wrap.offsetWidth : window.innerWidth;
+    cardW = slotW - MARGIN * 2;
+    var N = originalCards.length;
+    Array.from(grid.children).forEach(function(c) {
+      c.style.width = cardW + 'px';
+      c.style.marginLeft = MARGIN + 'px';
+      c.style.marginRight = MARGIN + 'px';
+    });
+    grid.style.width = ((N + 2) * slotW) + 'px';
+    setPos(currentIdx * slotW, false);
   }
 
-  function initLifecycle() {
-    const isMobile = window.innerWidth <= 680;
-    if (isMobile && !isMobileActive) {
-      isMobileActive = true;
-      setupCarousel();
-    } else if (!isMobile && isMobileActive) {
-      isMobileActive = false;
-      destroyCarousel();
-    }
-  }
-
-  window.addEventListener('DOMContentLoaded', initLifecycle);
-  if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    initLifecycle();
-  }
-
-  let resizeTimer = null;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-      initLifecycle();
-      if (isMobileActive && grid) {
-        gridWidth = grid.offsetWidth;
-        grid.style.transition = 'none';
-        grid.style.transform = `translate3d(${-currentIndex * 100}%, 0, 0)`;
-      }
-    }, 150);
+  /* ---- Init ---- */
+  if (isMobile()) setup();
+  var resizeT;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeT);
+    resizeT = setTimeout(onResize, 200);
   });
 })();
 
@@ -1980,3 +1903,4 @@ window.parent.postMessage({type:'__edit_mode_available'},'*');
 </script>
 </body>
 </html>
+
