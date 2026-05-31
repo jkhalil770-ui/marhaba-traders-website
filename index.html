@@ -276,8 +276,9 @@ h3{font-family:var(--se);font-size:clamp(18px,1.6vw,22px);font-weight:600}
 #testiLightbox{display:none;position:fixed;inset:0;z-index:600;background:rgba(4,8,20,.96);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;overflow-y:auto}
 #testiLightbox.open{display:flex}
 .tl-inner{position:relative;max-width:680px;width:100%;margin:auto;display:flex;flex-direction:column;align-items:center;gap:0}
-.tl-close{position:fixed;top:18px;right:22px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;z-index:10;line-height:1}
-.tl-close:hover{background:rgba(255,255,255,.2)}
+.tl-close{position:fixed!important;top:16px!important;right:16px!important;width:40px!important;height:40px!important;border-radius:50%!important;background:#090D1A!important;border:2px solid rgba(255,255,255,0.8)!important;color:#fff!important;font-size:18px!important;font-weight:700!important;cursor:pointer!important;display:flex!important;align-items:center!important;justify-content:center!important;transition:transform .2s,background .2s!important;z-index:99999!important;line-height:1!important;box-shadow:0 4px 16px rgba(0,0,0,0.35)!important}
+.tl-close:hover{background:#1D4ED8!important;transform:scale(1.08)!important}
+.tl-close:active{transform:scale(0.92)!important}
 .tl-count{position:fixed;top:24px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:600;letter-spacing:2px;color:rgba(255,255,255,.45);text-transform:uppercase;z-index:10}
 .tl-img-wrap{width:100%;border-radius:20px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.6);position:relative}
 .tl-img-wrap img{width:100%;display:block;border-radius:20px}
@@ -414,8 +415,9 @@ footer{background:var(--charcoal);color:rgba(249,250,251,.7);padding:48px 0 32px
 #csLightbox{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.88);backdrop-filter:blur(8px);align-items:flex-start;justify-content:center;padding:24px 16px;overflow-y:auto}
 #csLightbox.open{display:flex}
 .cs-lb-inner{position:relative;max-width:860px;width:100%;margin:auto}
-.cs-lb-close{position:fixed;top:20px;right:24px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;z-index:10}
-.cs-lb-close:hover{background:rgba(255,255,255,.22)}
+.cs-lb-close{position:fixed!important;top:16px!important;right:16px!important;width:40px!important;height:40px!important;border-radius:50%!important;background:#090D1A!important;border:2px solid rgba(255,255,255,0.8)!important;color:#fff!important;font-size:18px!important;font-weight:700!important;cursor:pointer!important;display:flex!important;align-items:center!important;justify-content:center!important;transition:transform .2s,background .2s!important;z-index:99999!important;line-height:1!important;box-shadow:0 4px 16px rgba(0,0,0,0.35)!important}
+.cs-lb-close:hover{background:#1D4ED8!important;transform:scale(1.08)!important}
+.cs-lb-close:active{transform:scale(0.92)!important}
 .cs-lb-img{width:100%;border-radius:16px;display:block;box-shadow:0 32px 80px rgba(0,0,0,.5)}
 .cs-lb-cta{text-align:center;margin-top:20px;padding-bottom:24px}
 .cs-lb-cta a{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:40px;background:var(--wa);color:#fff;font-size:14px;font-weight:600;text-decoration:none;transition:background .2s;box-shadow:0 6px 20px rgba(37,211,102,.35)}
@@ -1240,9 +1242,9 @@ function goT(i){
   document.getElementById('testiTrack').style.transform=`translateX(-${ti*stepW}px)`;
   document.querySelectorAll('.tnd').forEach((d,j)=>d.classList.toggle('act',j===ti));
 }
-let tTimer=setInterval(()=>goT(ti+1),4500);
-document.getElementById('tNext').addEventListener('click',()=>{clearInterval(tTimer);goT(ti+1);tTimer=setInterval(()=>goT(ti+1),4500)});
-document.getElementById('tPrev').addEventListener('click',()=>{clearInterval(tTimer);goT(ti-1);tTimer=setInterval(()=>goT(ti+1),4500)});
+let tTimer=setInterval(()=>goT(ti+1),3000);
+document.getElementById('tNext').addEventListener('click',()=>{clearInterval(tTimer);goT(ti+1);tTimer=setInterval(()=>goT(ti+1),3000)});
+document.getElementById('tPrev').addEventListener('click',()=>{clearInterval(tTimer);goT(ti-1);tTimer=setInterval(()=>goT(ti+1),3000)});
 window.addEventListener('resize',()=>goT(ti));
 
 function renderInds(){
