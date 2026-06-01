@@ -853,9 +853,9 @@ footer{background:var(--charcoal);color:rgba(249,250,251,.7);padding:48px 0 32px
 <section id="portfolio" class="sl">
   <div class="wrap">
     <div class="sec-head" data-r style="text-align:center">
-      <div class="ey" style="justify-content:center">Case Studies · کیس اسٹڈیز</div>
-      <h2>Real Results <em style="font-style:italic;color:var(--blue)">We Delivered</em></h2>
-      <p style="font-size:15px;color:var(--muted);margin-top:10px">Actual case study documents from our funded Pakistani startups. Swipe to explore each success story.</p>
+      <div class="ey" style="justify-content:center">Testimonials · گواہیاں</div>
+      <h2>Words From Founders <em style="font-style:italic;color:var(--blue)">We Funded</em></h2>
+      <p style="font-size:15px;color:var(--muted);margin-top:10px">Real Pakistani founders. Real outcomes. Swipe to explore what 18 funded startup leaders say about working with Marhaba Traders.</p>
     </div>
     <div class="testi-outer"><div class="testi-track" id="testiTrack"></div></div>
     <div class="tarr"><button class="ta" id="tPrev">←</button><button class="ta" id="tNext">→</button></div>
@@ -867,9 +867,9 @@ footer{background:var(--charcoal);color:rgba(249,250,251,.7);padding:48px 0 32px
 <section id="reviews" class="sp">
   <div class="wrap">
     <div class="sec-head" data-r style="text-align:center;max-width:680px;margin-left:auto;margin-right:auto">
-      <div class="ey" style="justify-content:center">Testimonials · گواہیاں</div>
-      <h2>Words From Founders <em style="font-style:italic;color:var(--blue)">We Funded</em></h2>
-      <p style="font-size:15px;color:var(--muted);margin-top:10px">Real Pakistani founders. Real outcomes. Read what 18 funded startup leaders say about working with Marhaba Traders.</p>
+      <div class="ey" style="justify-content:center">Case Studies · کیس اسٹڈیز</div>
+      <h2>Real Results <em style="font-style:italic;color:var(--blue)">We Delivered</em></h2>
+      <p style="font-size:15px;color:var(--muted);margin-top:10px">Actual case study documents and metrics from our funded Pakistani startups. Read each success story below.</p>
     </div>
     <div class="testi-full-grid" id="testiFullGrid"></div>
     <div class="testi-carousel-controls-mob" id="testiCarouselControlsMob" style="display: none;">
@@ -1069,7 +1069,6 @@ const CS_IMGS=[
   'casestudy/25E468E1-9B7B-4DCE-BC8C-CEC452423499.PNG',
   'casestudy/2B7C4643-B26C-4285-84FE-9A498101D8B2.PNG',
   'casestudy/881835FF-3F12-43DF-9856-B33EBC380387.PNG',
-  'casestudy/9B22D341-6C18-4C48-A8D9-D9D6B985EC9F.PNG',
   'casestudy/A1FBBB62-C7D0-4349-B80C-A8F152CCD8AC.PNG',
   'casestudy/B2450379-21F5-451A-95DE-6A7FFB8FFC58.PNG',
   'casestudy/B425C94A-9F9E-4331-A178-30ADAE87756A.PNG',
@@ -1202,9 +1201,9 @@ function renderTesti(){
   const dots=document.getElementById('testiDots');
   track.innerHTML=CS_IMGS.map((src,i)=>`
     <div class="cs-slide">
-      <img src="${src}" alt="Case Study ${i+1}" ${i < 3 ? 'loading="eager"' : 'loading="lazy"'} onerror="this.style.background='var(--light)'">
+      <img src="${src}" alt="Client Testimonial ${i+1}" ${i < 3 ? 'loading="eager"' : 'loading="lazy"'} onerror="this.style.background='var(--light)'">
       <div class="cs-slide-foot">
-        <span class="cs-slide-num">CASE STUDY · ${String(i+1).padStart(2,'0')}</span>
+        <span class="cs-slide-num">TESTIMONIAL · ${String(i+1).padStart(2,'0')}</span>
         <span class="cs-slide-label">Marhaba Traders</span>
       </div>
     </div>`).join('');
@@ -1334,7 +1333,7 @@ function renderTestiGrid(){
             <span class="tfc-tag">${t.ind}</span>
             <span class="tfc-tag g">📍 ${t.loc}</span>
           </div>
-          <button class="tfc-view" onclick="openTestiLB(${i})">View Testimonial ↗</button>
+          <button class="tfc-view" onclick="openTestiLB(${i})">View Case Study ↗</button>
         </div>
       </div>
     </div>`).join('');
