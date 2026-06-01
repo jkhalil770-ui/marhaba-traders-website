@@ -318,15 +318,16 @@ function PaymentDone({onReset,userEmail,formType}){
 
       {/* VIP Premium Registration Fee Card */}
       <div style={{
-        background: 'linear-gradient(135deg, #0A1128 0%, #101F42 100%)',
+        background: '#0C0906',
         border: '1.5px solid #C9A84C',
         borderRadius: '10px',
-        padding: '16px 20px',
+        padding: '18px 24px',
         color: '#fff',
         marginBottom: '22px',
-        boxShadow: '0 8px 32px rgba(201,168,76,.16)',
+        boxShadow: '0 8px 24px rgba(201,168,76,.12)',
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        textAlign: 'center'
       }}>
         <div style={{
           position: 'absolute',
@@ -336,24 +337,11 @@ function PaymentDone({onReset,userEmail,formType}){
           height: '3px',
           background: 'linear-gradient(90deg, #C9A84C, #E8D07A, #C9A84C)'
         }}></div>
-        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:12}}>
-          <div>
-            <div style={{fontSize:10,textTransform:'uppercase',letterSpacing:'1.5px',color:'#E8D07A',fontWeight:700,marginBottom:3}}>Registration & Onboarding Fee</div>
-            <div style={{fontSize:20,fontWeight:800,color:'#fff',fontFamily:'"Cormorant Garamond",Georgia,serif'}}>PKR 10,000 <span style={{fontSize:12,color:'rgba(255,255,255,.6)',fontWeight:400}}>(One-Time Account Setup)</span></div>
-            <div style={{fontFamily:UF,fontSize:12,color:'#E8D07A',direction:'rtl',textAlign:'left',marginTop:4,lineHeight:1.6}}>Ø¨Ø±Ø§ÛÙ Ú©Ø±Ù… Ø§Ù¾Ù†ÛŒ Ø±Ø¬Ø³Ù¹Ø±ÛŒØ´Ù† Ú©ÛŒ ØªØµØ¯ÛŒÙ‚ Ú©Û’ Ù„ÛŒÛ’ 10,000 Ø±ÙˆÙ¾Û’ Ù…Ù†ØªÙ‚Ù„ Ú©Ø±ÛŒÚºÛ”</div>
-          </div>
-          <div style={{
-            background: 'rgba(201,168,76,.15)',
-            border: '1px solid rgba(201,168,76,.35)',
-            color: '#E8D07A',
-            padding: '5px 12px',
-            borderRadius: '20px',
-            fontSize: '10.5px',
-            fontWeight: '700',
-            letterSpacing: '.5px'
-          }}>
-            OFFICIAL PORTAL
-          </div>
+        <div style={{fontSize:11,textTransform:'uppercase',letterSpacing:'1.8px',color:'#C9A84C',fontWeight:700,marginBottom:6}}>
+          Registration & Onboarding Fee
+        </div>
+        <div style={{fontSize:24,fontWeight:800,color:'#FEFCF7',fontFamily:'"Cormorant Garamond",Georgia,serif'}}>
+          PKR 10,000 <span style={{fontSize:13,color:'#9E9282',fontWeight:400,fontFamily:'"DM Sans",sans-serif',marginLeft:6}}>(One-Time Account Setup)</span>
         </div>
       </div>
 
