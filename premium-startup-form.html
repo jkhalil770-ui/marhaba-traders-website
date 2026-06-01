@@ -419,6 +419,21 @@ function SectionForm({sections,fd,setFd,title,urTitle,desc,user,tableName}){
   const [err,setErr]=useState(null);
   const upd=(id,v)=>setFd(p=>({...p,[id]:v}));
   const submit = async () => {
+    const missing = [];
+    sections.forEach(s => {
+      s.fields.forEach(f => {
+        if (f.req) {
+          const v = fd[f.id];
+          if (v === undefined || v === null || (typeof v === 'string' && v.trim() === '') || (Array.isArray(v) && v.length === 0)) {
+            missing.push(f.en);
+          }
+        }
+      });
+    });
+    if (missing.length > 0) {
+      setErr('Please fill in all required fields / براہ کرم تمام مطلوبہ معلومات فراہم کریں: ' + missing.join(', '));
+      return;
+    }
     setLoading(true); setErr(null);
     try {
       const payload = await serializeFormData(fd, user.email);
@@ -450,7 +465,7 @@ function SectionForm({sections,fd,setFd,title,urTitle,desc,user,tableName}){
       <div className="f-sh"><div className="f-dot"></div><div><div className="f-title">{s.sec}</div></div></div>
       <Grid fields={s.fields} fd={fd} upd={upd}/>
     </div>)}
-    {err&&<div style={{color:'#dc2626',fontSize:13,marginTop:8,padding:'8px 12px',background:'#fef2f2',borderRadius:6,border:'1px solid #fca5a5'}}>⚠ {err}</div>}
+    {err&&<div style={{color:'#dc2626',fontSize:13,marginTop:8,padding:'8px 12px',background:'#fef2f2',borderRadius:6,border:'1px solid #fca5a5',whiteSpace:'pre-line'}}>⚠ {err}</div>}
     <div style={{display:'flex',justifyContent:'flex-end',marginTop:6}}>
       <button onClick={submit} disabled={loading} className="btn-dark" style={{opacity:loading?.6:1}}>
         {loading?'Saving…':'Submit Profile'} &nbsp;<ChrIco/>
@@ -467,7 +482,71 @@ function StepForm({sections,fd,setFd,title,urTitle,desc,user,tableName}){
   const total=sections.length;
   const upd=(id,v)=>setFd(p=>({...p,[id]:v}));
   const sec=sections[step];
+  
+  const handleStepClick = (targetStep) => {
+    if (targetStep <= step) {
+      setStep(targetStep);
+      setErr(null);
+      return;
+    }
+    // Validate all steps from 0 up to targetStep - 1
+    for (let i = 0; i < targetStep; i++) {
+      const s = sections[i];
+      const missing = [];
+      s.fields.forEach(f => {
+        if (f.req) {
+          const v = fd[f.id];
+          if (v === undefined || v === null || (typeof v === 'string' && v.trim() === '') || (Array.isArray(v) && v.length === 0)) {
+            missing.push(f.en);
+          }
+        }
+      });
+      if (missing.length > 0) {
+        setErr(`Please fill in the required fields in Stage ${i + 1} (${s.title}) / آگے بڑھنے کے لیے مرحلہ ${i + 1} کی تمام مطلوبہ معلومات فراہم کریں:\n- ` + missing.join('\n- '));
+        setStep(i);
+        return;
+      }
+    }
+    setErr(null);
+    setStep(targetStep);
+  };
+
+  const goNext = () => {
+    handleStepClick(step + 1);
+  };
+
   const submit = async () => {
+    const missing = [];
+    sections.forEach((s, idx) => {
+      s.fields.forEach(f => {
+        if (f.req) {
+          const v = fd[f.id];
+          if (v === undefined || v === null || (typeof v === 'string' && v.trim() === '') || (Array.isArray(v) && v.length === 0)) {
+            missing.push(`Stage ${idx + 1}: ${f.en}`);
+          }
+        }
+      });
+    });
+    if (missing.length > 0) {
+      setErr('Please fill in all required fields / براہ کرم تمام مطلوبہ معلومات فراہم کریں:\n- ' + missing.join('\n- '));
+      // Jump to first invalid step
+      for (let i = 0; i < sections.length; i++) {
+        let stepMissing = false;
+        sections[i].fields.forEach(f => {
+          if (f.req) {
+            const v = fd[f.id];
+            if (v === undefined || v === null || (typeof v === 'string' && v.trim() === '') || (Array.isArray(v) && v.length === 0)) {
+              stepMissing = true;
+            }
+          }
+        });
+        if (stepMissing) {
+          setStep(i);
+          break;
+        }
+      }
+      return;
+    }
     setLoading(true); setErr(null);
     try {
       const payload = await serializeFormData(fd, user.email);
@@ -489,6 +568,9 @@ function StepForm({sections,fd,setFd,title,urTitle,desc,user,tableName}){
       setLoading(false);
     }
   };
+
+  const isInvestor = tableName === 'investor_applications';
+
   if(done)return <PaymentDone onReset={()=>{setDone(false);setStep(0);}} userEmail={user.email} formType={tableName}/>;
   return <div>
     <div className="form-meta">
@@ -497,7 +579,7 @@ function StepForm({sections,fd,setFd,title,urTitle,desc,user,tableName}){
     </div>
     <div className="prog-bar"><div className="prog-fill" style={{width:`${((step+1)/total)*100}%`}}></div></div>
     <div className="steps-scroll">
-      {sections.map((s,i)=><button key={i} type="button" onClick={()=>setStep(i)} className={`step-pill${i===step?' active':i<step?' done':''}`}>
+      {sections.map((s,i)=><button key={i} type="button" onClick={()=>handleStepClick(i)} className={`step-pill${i===step?' active':i<step?' done':''}`}>
         {i<step&&<ChkIco/>}{i+1}. {s.title}
       </button>)}
     </div>
@@ -508,14 +590,14 @@ function StepForm({sections,fd,setFd,title,urTitle,desc,user,tableName}){
       </div>
       <Grid fields={sec.fields} fd={fd} upd={upd}/>
     </div>
-    {err&&<div style={{color:'#dc2626',fontSize:13,marginTop:8,padding:'8px 12px',background:'#fef2f2',borderRadius:6,border:'1px solid #fca5a5'}}>⚠ {err}</div>}
+    {err&&<div style={{color:'#dc2626',fontSize:13,marginTop:8,padding:'8px 12px',background:'#fef2f2',borderRadius:6,border:'1px solid #fca5a5',whiteSpace:'pre-line'}}>⚠ {err}</div>}
     <div className="nav-btns">
       <button onClick={()=>setStep(s=>Math.max(0,s-1))} disabled={step===0} className="btn-out" style={{opacity:step===0?.35:1}}>
         <ChlIco/> Back
       </button>
       {step<total-1
-        ?<button onClick={()=>setStep(s=>s+1)} className="btn-gd">Next <ChrIco/></button>
-        :<button onClick={submit} disabled={loading} className="btn-dark" style={{opacity:loading?.6:1}}>{loading?'Saving…':'Submit Full Profile'} <ChrIco/></button>
+        ?<button onClick={goNext} className="btn-gd">Next <ChrIco/></button>
+        :<button onClick={submit} disabled={loading} className="btn-dark" style={{opacity:loading?.6:1}}>{loading?'Saving…':(isInvestor?'Submit Investor Profile':'Submit Full Profile')} <ChrIco/></button>
       }
     </div>
   </div>;
