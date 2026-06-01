@@ -314,7 +314,9 @@ function PaymentDone({onReset,userEmail,formType}){
           <div style={{fontSize:12,color:'#16a34a',marginTop:2}}>Step 2: Complete payment to confirm your registration</div>
         </div>
       </div>
-      \r\n\r\n      {/* VIP Premium Registration Fee Card */}
+      
+
+      {/* VIP Premium Registration Fee Card */}
       <div style={{
         background: 'linear-gradient(135deg, #0A1128 0%, #101F42 100%)',
         border: '1.5px solid #C9A84C',
@@ -353,7 +355,9 @@ function PaymentDone({onReset,userEmail,formType}){
             OFFICIAL PORTAL
           </div>
         </div>
-      </div>\r\n\r\n      <div style={{fontSize:13,fontWeight:700,color:'#1C1812',marginBottom:4}}>Select Payment Method</div>
+      </div>
+
+      <div style={{fontSize:13,fontWeight:700,color:'#1C1812',marginBottom:4}}>Select Payment Method</div>
       <div style={{fontFamily:UF,fontSize:11,color:'#6E6455',direction:'rtl',textAlign:'right',marginBottom:12,lineHeight:1.8}}>ادائیگی کا طریقہ منتخب کریں</div>
       <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,marginBottom:20}}>
         <div onClick={()=>setMethod('jazzcash')} style={{cursor:'pointer',border:`2px solid ${method==='jazzcash'?'#C9A84C':'rgba(28,24,18,.12)'}`,borderRadius:10,padding:14,background:method==='jazzcash'?'rgba(201,168,76,.07)':'#fff',transition:'all .2s',textAlign:'center'}}>
