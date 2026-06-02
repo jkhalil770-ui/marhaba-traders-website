@@ -412,6 +412,31 @@ async function serializeFormData(fd, userEmail) {
   return out;
 }
 
+
+/* ── Google Sheets Webhook ── */
+const SHEETS_WEBHOOK = ''; // Set this to your Google Apps Script web app URL
+async function sendToGoogleSheets(tableName, email, formData) {
+  if (!SHEETS_WEBHOOK) return; // Skip if not configured
+  try {
+    const cleanData = {};
+    for (const [k, v] of Object.entries(formData)) {
+      if (v && typeof v === 'object' && !(v instanceof Array)) {
+        cleanData[k] = JSON.stringify(v);
+      } else if (Array.isArray(v)) {
+        cleanData[k] = v.join(', ');
+      } else {
+        cleanData[k] = v;
+      }
+    }
+    await fetch(SHEETS_WEBHOOK, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ table: tableName, email: email, formData: cleanData })
+    });
+  } catch(e) { console.log('Sheets webhook error (non-blocking):', e); }
+}
+
 /* Simple section form (Quick Signup) */
 function SectionForm({sections,fd,setFd,title,urTitle,desc,user,tableName}){
   const [done,setDone]=useState(false);
@@ -446,6 +471,8 @@ function SectionForm({sections,fd,setFd,title,urTitle,desc,user,tableName}){
         console.error('Form save error:', error);
         setErr(error.message || 'Failed to save form data. Please try again.');
       } else {
+        // Send to Google Sheets (non-blocking)
+        sendToGoogleSheets(tableName, user.email, payload).catch(()=>{});
         setDone(true);
       }
     } catch(e) {
@@ -559,6 +586,8 @@ function StepForm({sections,fd,setFd,title,urTitle,desc,user,tableName}){
         console.error('Form save error:', error);
         setErr(error.message || 'Failed to save form data. Please try again.');
       } else {
+        // Send to Google Sheets (non-blocking)
+        sendToGoogleSheets(tableName, user.email, payload).catch(()=>{});
         setDone(true);
       }
     } catch(e) {
