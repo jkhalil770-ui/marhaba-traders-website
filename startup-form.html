@@ -414,7 +414,7 @@ async function serializeFormData(fd, userEmail) {
 
 
 /* ── Google Sheets Webhook ── */
-const SHEETS_WEBHOOK = ''; // Set this to your Google Apps Script web app URL
+const SHEETS_WEBHOOK = 'https://script.google.com/macros/s/AKfycbwavFunaW3OWlWrVgmRKxIpKcSZKbEg928BKnByznhOMdLpOSPox8-3_1BhpTamS3qq/exec'; // Set this to your Google Apps Script web app URL
 async function sendToGoogleSheets(tableName, email, formData) {
   if (!SHEETS_WEBHOOK) return; // Skip if not configured
   try {
